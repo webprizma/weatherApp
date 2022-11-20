@@ -4,10 +4,10 @@ import { Component } from 'react';
 import { Navbar, Nav, Container, Row, Col } from "react-bootstrap";
 
 const PLACES = [
-  { name: "Mexico City", zip: "94303" },
-  { name: "Sunnyvale", zip: "94088" },
-  { name: "Santa Cruz", zip: "95062" },
-  { name: "Honolulu", zip: "96803" }
+  { name: "Moscow", zip: "101000" },
+  { name: "Saint Petersburg", zip: "197198" },
+  { name: "Krasnodar", zip: "350000" },
+  { name: "Voronezh", zip: "394000" }
 ];
 
 class WeatherDisplay extends Component {
