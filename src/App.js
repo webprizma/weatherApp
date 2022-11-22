@@ -1,4 +1,4 @@
-import "bootswatch/dist/lux/bootstrap.min.css";
+import "bootswatch/dist/journal/bootstrap.min.css";
 // import "bootstrap/dist/css/bootstrap.css";
 import {Component} from 'react';
 import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
@@ -7,7 +7,6 @@ const PLACES = [
     {name: "Москва", zip: "101000"},
     {name: "Санкт-Петербург", zip: "197198"},
     {name: "Краснодар", zip: "350000"},
-    {name: "Воронеж", zip: "394000"}
 ];
 
 class WeatherDisplay extends Component {
@@ -74,7 +73,8 @@ class App extends Component {
                         <Col md={4} sm={4}>
                             <h3>Выберите город</h3>
                             <Nav
-                                className="flex-column"
+                                variant={"pills"}
+                                className={"flex-column"}
                                 activeKey={activePlace}
                                 onSelect={index => {
                                     this.setState({activePlace: index});
