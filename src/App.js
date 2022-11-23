@@ -55,8 +55,7 @@ class YesNoMaybe extends Component {
     constructor() {
         super();
         this.state = {
-            yesNoMaybeData: null,
-            answer: null
+            yesNoMaybeData: null
         };
     }
 
@@ -67,7 +66,7 @@ class YesNoMaybe extends Component {
         });
     }
 
-    update() {
+    rel() {
         this.setState({yesNoMaybeData: null});
         const URL = "https://yesno.wtf/api";
         fetch(URL).then(res => res.json()).then(json => {
@@ -77,14 +76,14 @@ class YesNoMaybe extends Component {
 
     render() {
         const yesNoMaybeData = this.state.yesNoMaybeData;
-        const answer = this.state.answer;
-        if (!yesNoMaybeData) return "";
-        if (yesNoMaybeData.answer === "yes") {
-            this.setState({answer: "да"});
-        } else if (yesNoMaybeData.answer === "no") {
-            this.setState({answer: "нет"});
-        } else if (yesNoMaybeData.answer === "maybe") {
-            this.setState({answer: "может быть"});
+        if (!yesNoMaybeData) return null;
+        let answer = yesNoMaybeData.answer;
+        if (answer === "yes") {
+            answer = "да";
+        } else if (answer === "no") {
+            answer = "нет";
+        } else if (answer === "maybe") {
+            answer = "может быть";
         }
         return (
             <div>
@@ -97,7 +96,7 @@ class YesNoMaybe extends Component {
                             Ваш ответ: {answer}
                         </h1>
                         <Button
-                            onClick={() => this.update()}
+                            onClick={() => this.rel()}
                         >
                             Новый ответ
                         </Button>
