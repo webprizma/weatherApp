@@ -1,7 +1,7 @@
 import "bootswatch/dist/journal/bootstrap.min.css";
 // import "bootstrap/dist/css/bootstrap.css";
 import {Component} from 'react';
-import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
+import {Button, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 
 const PLACES = [
     {name: "Москва", zip: "101000"},
@@ -51,6 +51,63 @@ class WeatherDisplay extends Component {
     }
 }
 
+class YesNoMaybe extends Component {
+    constructor() {
+        super();
+        this.state = {
+            yesNoMaybeData: null,
+            answer: null
+        };
+    }
+
+    componentDidMount() {
+        const URL = "https://yesno.wtf/api";
+        fetch(URL).then(res => res.json()).then(json => {
+            this.setState({yesNoMaybeData: json});
+        });
+    }
+
+    update() {
+        this.setState({yesNoMaybeData: null});
+        const URL = "https://yesno.wtf/api";
+        fetch(URL).then(res => res.json()).then(json => {
+            this.setState({yesNoMaybeData: json});
+        });
+    }
+
+    render() {
+        const yesNoMaybeData = this.state.yesNoMaybeData;
+        const answer = this.state.answer;
+        if (!yesNoMaybeData) return "";
+        if (yesNoMaybeData.answer === "yes") {
+            this.setState({answer: "да"});
+        } else if (yesNoMaybeData.answer === "no") {
+            this.setState({answer: "нет"});
+        } else if (yesNoMaybeData.answer === "maybe") {
+            this.setState({answer: "может быть"});
+        }
+        return (
+            <div>
+                <Row>
+                    <Col>
+                        <Image src={yesNoMaybeData.image} height="auto" width="100%"/>
+                    </Col>
+                    <Col>
+                        <h1>
+                            Ваш ответ: {answer}
+                        </h1>
+                        <Button
+                            onClick={() => this.update()}
+                        >
+                            Новый ответ
+                        </Button>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+}
+
 class App extends Component {
     constructor() {
         super();
@@ -91,6 +148,14 @@ class App extends Component {
                             <WeatherDisplay key={activePlace} zip={PLACES[activePlace].zip}/>
                         </Col>
                     </Row>
+                </Container>
+                <Container>
+                    <Navbar>
+                        <Navbar.Brand>
+                            Да, Нет, Может быть
+                        </Navbar.Brand>
+                    </Navbar>
+                    <YesNoMaybe/>
                 </Container>
             </div>
         );
