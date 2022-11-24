@@ -1,7 +1,7 @@
 import "bootswatch/dist/journal/bootstrap.min.css";
 // import "bootstrap/dist/css/bootstrap.css";
 import {Component} from 'react';
-import {Button, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
+import {Table, Button, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 
 const PLACES = [
     {name: "Москва", zip: "101000"},
@@ -107,6 +107,40 @@ class YesNoMaybe extends Component {
     }
 }
 
+class CoinGecko extends Component {
+    constructor() {
+        super();
+        this.state = {
+            coinData: null
+        };
+    }
+
+    componentDidMount() {
+        const URL = "https://api.coingecko.com/api/v3/coins/list";
+        fetch(URL).then(res => res.json()).then(json => {
+            this.setState({coinData: json});
+        });
+    }
+
+    render() {
+        const coinData = this.state.coinData;
+        if (!coinData) return <div>Loading</div>
+        return (
+            <div>
+                <Table>
+                    {coinData.map((coin) => (
+                        <tr>
+                            <td>{coin.id}</td>
+                            <td>{coin.symbol}</td>
+                            <td>{coin.name}</td>
+                        </tr>
+                    ))}
+                </Table>
+            </div>
+        )
+    }
+}
+
 class App extends Component {
     constructor() {
         super();
@@ -155,6 +189,14 @@ class App extends Component {
                         </Navbar.Brand>
                     </Navbar>
                     <YesNoMaybe/>
+                </Container>
+                <Container>
+                    <Navbar>
+                        <Navbar.Brand>
+                            Криптовалюты
+                        </Navbar.Brand>
+                    </Navbar>
+                    <CoinGecko/>
                 </Container>
             </div>
         );
