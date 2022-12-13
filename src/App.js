@@ -1,7 +1,7 @@
 import "bootswatch/dist/journal/bootstrap.min.css";
 // import "bootstrap/dist/css/bootstrap.css";
 import {Component} from 'react';
-import {Table, Button, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
+import {Table, Col, Container, Image, Nav, Navbar, Row} from "react-bootstrap";
 
 const PLACES = [
     {name: "Москва", zip: "101000"},
@@ -92,14 +92,13 @@ class YesNoMaybe extends Component {
                         <Image src={yesNoMaybeData.image} height="auto" width="100%"/>
                     </Col>
                     <Col>
-                        <h1>
+                        <form onSubmit={() => this.rel()}>
+                            <input placeholder="Ваш вопрос"/>
+                            <button>Получить ответ</button>
+                        </form>
+                        <p>
                             Ваш ответ: {answer}
-                        </h1>
-                        <Button
-                            onClick={() => this.rel()}
-                        >
-                            Новый ответ
-                        </Button>
+                        </p>
                     </Col>
                 </Row>
             </div>
